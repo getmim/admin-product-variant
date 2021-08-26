@@ -1,0 +1,42 @@
+<form  method="POST" class="needs-validation main" novalidate>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white navbar-shadow">
+        <div class="navbar-multiline mr-auto">
+            <span class="navbar-brand" href="#0"><?= $product->name->safe ?> Variant Editor</span>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<?= $this->router->to('adminHome') ?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminProduct') ?>">Product</a></li>
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminProductVariant', ['product' => $product->id->value]) ?>"><?= $product->name->safe ?></a></li>
+                <li class="breadcrumb-item active" aria-current="page">Variant</li>
+                </ol>
+            </nav>
+        </div>
+        <button class="btn btn-primary">Save</button>
+    </nav>
+
+    <div class="container p-3">
+        <div class="row mb-3">
+            <?= $form->csrfField('noob') ?>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?= $form->field('name'); ?>
+                                <?= $form->field('price'); ?>
+                            </div>
+                            <div class="col-md-6">
+                                <?= $form->field('image'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-shadow">
+    <div class="navbar-multiline mr-auto">
+        <span class="navbar-brand" href="#0"><?= $product->name->safe ?> Variant Editor</span>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminHome') ?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminProduct') ?>">Product</a></li>
+                <!-- <li class="breadcrumb-item"><a href="<?= $this->router->to('adminProductVariant', ['product' => $product->id->value]) ?>"><?= $product->name->safe ?></a></li> -->
+                <li class="breadcrumb-item active" aria-current="page"><?= $product->name->safe ?></li>
+            </ol>
+        </nav>
+    </div>
+    <?php if($this->can_i->product_create): ?>
+    <a href="<?= $this->router->to('adminProductVariantEdit', ['id'=>0, 'product' => $product->id->value]) ?>" class="btn btn-primary">Create New Variant</a>
+    <?php endif; ?>
+</nav>
+
+<div class="container p-3">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div>Total item: <?= number_format($total); ?></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <?php if($variants): ?>
+                <ul class="list-group list-group-flush card mb-3">
+                    <?php foreach($variants as $variant): ?>
+                        <li class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">
+                                    <?= $variant->name->safe ?>
+                                </h5>
+                                <div>
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Action">
+                                        <a href="<?= $this->router->to('adminProductVariantEdit', ['product' => $product->id->value, 'id'=>$product->id]) ?>" class="btn btn-secondary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button id="product-action-<?= $product->id ?>" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                            <div class="dropdown-menu" aria-labelledby="product-action-<?= $variant->id ?>">
+                                                <a class="dropdown-item"
+                                                    data-toggle="confirm"
+                                                    data-text="Are you sure want to remove this item?"
+                                                    data-btn-type="danger"
+                                                    href="<?= $this->router->to('adminProductVariantRemove', ['id'=>$variant->id, 'product' => $product->id->value]) ?>">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <small>
+                                <span title="Created">
+                                    <i class="far fa-calendar-plus"></i>
+                                    <?= $variant->created->format('M d, Y H:i') ?>
+                                </span>
+                                &middot;
+                                <span title="Creator">
+                                    <i class="fas fa-user"></i>
+                                    <?= $variant->user->fullname->safe ?>
+                                </span>
+                            </small>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
+            <?php if($pages): ?>
+                <?= $this->partial('shared/pagination', ['pages'=>$pages, 'align'=>'right']); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
