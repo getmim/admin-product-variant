@@ -96,6 +96,15 @@ class VariantController extends \Admin\Controller
             'changes'  => $valid
         ]);
 
+        // update product stocks
+        if(isset($valid->stock)) {
+            $cond = [
+                'product' => $product->id->value
+            ];
+            $stocks = PVariant::sum('stock', $cond);
+            Product::set(['stock' => $stocks], ['id' => $product->id->value]);
+        }
+
         $next = $this->router->to('adminProductVariant', ['product' => $product->id]);
         $this->res->redirect($next);
     }

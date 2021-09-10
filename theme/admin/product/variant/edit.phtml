@@ -23,7 +23,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <?= $form->field('name'); ?>
-                                <?= $form->field('price'); ?>
+                                <?php if($form->fieldExists('stock')): ?>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <?= $form->field('price'); ?>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <?= $form->field('stock'); ?>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <?= $form->field('price'); ?>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-6">
                                 <?= $form->field('image'); ?>

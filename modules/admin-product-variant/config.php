@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'admin-product-variant',
-    '__version' => '0.0.1',
+    '__version' => '0.1.0',
     '__git' => 'git@github.com:getmim/admin-product-variant.git',
     '__license' => 'MIT',
     '__author' => [
